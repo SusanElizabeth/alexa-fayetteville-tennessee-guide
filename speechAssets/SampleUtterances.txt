@@ -1,11 +1,11 @@
-getOverview more information about seattle
-getOverview what's it like in seattle
-getOverview tell me more about seattle 
-getOverview tell me some facts about seattle 
-getOverview facts about seattle 
-getOverview overview of seattle
-getOverview seattle facts 
-getOverview seattle overview
+getOverview more information about Fayetteville
+getOverview what's it like in Fayetteville
+getOverview tell me more about Fayetteville 
+getOverview tell me some facts about Fayetteville 
+getOverview facts about Fayetteville 
+getOverview overview of Fayetteville
+getOverview Fayetteville facts 
+getOverview Fayetteville overview
 
 getTopFiveIntent tell me the top five things 
 getTopFiveIntent top five things to do 

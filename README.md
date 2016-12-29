@@ -4,11 +4,11 @@ We all have our favorite places.  It may be your childhood hometown, an exotic p
 
 This new template uses [AWS Lambda](https://aws.amazon.com/lambda/), the [Alexa Skills Kit (ASK)](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit), and the [ASK SDK](https://developer.amazon.com/public/community/post/Tx213D2XQIYH864/Announcing-the-Alexa-Skills-Kit-for-Node-js), in addition to the [New York Times Article Search API](https://developer.nytimes.com) for news.  We provide the business logic, error handling, and help functions for your skill, you just need to provide the data and credentials.
 
-For this example, we will be creating a skill for the city of Seattle, Washington.  The user of this skill will be able to ask things like:
+For this example, we will be creating a skill for the city of Fayetteville, Washington.  The user of this skill will be able to ask things like:
 
-   * “Alexa, ask Seattle Guide what there is to do.”
-   * “Alexa, ask Seattle Guide about the Space Needle.”
-   * “Alexa, ask Seattle Guide for the news.”
+   * “Alexa, ask Fayetteville Guide what there is to do.”
+   * “Alexa, ask Fayetteville Guide about the Space Needle.”
+   * “Alexa, ask Fayetteville Guide for the news.”
 
 You will be able to use your own city in the sample provided, so that users can learn to love your location as much as you do!  This might also be a good opportunity to combine the knowledge from this template with our [Calendar Reader sample](https://github.com/alexa/skill-sample-nodejs-calendar-reader), so that you can provide information about the events in your town, as well as the best places to visit.
 
@@ -43,7 +43,7 @@ Skills are managed through the Amazon Developer Portal. You’ll link the Lambda
 4.  There are several choices to make on this page, so we will cover each one individually.
     1. Choose the language you want to start with.  You can go back and add all of this information for each language later, but for this tutorial, we are working with "English (U.S.)"
     2. Make sure the radio button for the Custom Interaction Model is selected for “Skill Type”.
-    3. Add the name of the skill. Give your skill a name that is simple and memorable, like "Seattle Guide." The name will be the one that shows up in the Alexa App (and now at [amazon.com/skills](https://www.amazon.com/skills)) when users are looking for new skills.  (Obviously, don't use Seattle Guide.  Use a name that describes the city you plan to use for your skill.)
+    3. Add the name of the skill. Give your skill a name that is simple and memorable, like "Fayetteville Guide." The name will be the one that shows up in the Alexa App (and now at [amazon.com/skills](https://www.amazon.com/skills)) when users are looking for new skills.  (Obviously, don't use Fayetteville Guide.  Use a name that describes the city you plan to use for your skill.)
     4. Add the invocation name. This is what your users will actually say to start using your skill. We recommend using only two or three words, because your users will have to say this every time they want to interact with your skill.
     5. Under "Global Fields," select "no" for Audio Player, as our skill won't be playing any audio.  
     6. Select **Next**.
@@ -89,7 +89,7 @@ Skills are managed through the Amazon Developer Portal. You’ll link the Lambda
     Now it is time to add the Utterances. Copy/paste the sample utterances from [GitHub](https://github.com/alexa/skill-sample-nodejs-city-guide/blob/master/speechAssets/SampleUtterances.txt). An example of utterances is listed below.
 
     ```
-    getOverview tell me about Seattle
+    getOverview tell me about Fayetteville
 
     getTopFiveIntent tell me top five things to do
     getTopFiveIntent what are the top five things to do
@@ -233,9 +233,9 @@ AWS Lambda lets you run code without provisioning or managing servers. You pay o
 
 ## Step 4: Testing Your Skill
 
-1.  In the Test area, we are going to enter a sample utterance in the service simulator section and see how Alexa will respond. In this example, we have called the skill ‘Seattle Guide,’ because we will be returning information about the city of Seattle. This is the ‘Invocation Name’ we set up on the Skill Information line in the “Skill Information” section.
+1.  In the Test area, we are going to enter a sample utterance in the service simulator section and see how Alexa will respond. In this example, we have called the skill ‘Fayetteville Guide,’ because we will be returning information about the city of Fayetteville. This is the ‘Invocation Name’ we set up on the Skill Information line in the “Skill Information” section.
 
-    * In the Service Simulator, type **‘open Seattle Guide’** and click the **“Ask Seattle Guide”** button.
+    * In the Service Simulator, type **‘open Fayetteville Guide’** and click the **“Ask Fayetteville Guide”** button.
 
     ![](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/city-guide/service-simulator._TTH_.png)
 
@@ -267,7 +267,7 @@ AWS Lambda lets you run code without provisioning or managing servers. You pay o
    
         Everything else can stay as-is for now in the Developer Portal.
 
-2.  Open the source file for your Lambda function, index.js, in an editor of your choice. This is in the src directory of the repository you downloaded earlier. You will see on line 9 the location variable, which is currently set to "Seattle." You will want to replace this with the name of the location you're using for your skill.  This name is used in many of the messages that Alexa will respond with, so you will only need to replace it in this one location.
+2.  Open the source file for your Lambda function, index.js, in an editor of your choice. This is in the src directory of the repository you downloaded earlier. You will see on line 9 the location variable, which is currently set to "Fayetteville." You will want to replace this with the name of the location you're using for your skill.  This name is used in many of the messages that Alexa will respond with, so you will only need to replace it in this one location.
  
     ![](https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/dex/alexa/alexa-skills-kit/tutorials/city-guide/location-variable._TTH_.png)
 
@@ -281,28 +281,28 @@ AWS Lambda lets you run code without provisioning or managing servers. You pay o
 4.  On line 19, there is a long set of sentences in the locationOverview variable.  This is meant to be an introduction to your city, and should include things like population, location, geography, and climate.
 
     ```JAVASCRIPT
-    var locationOverview = "Seattle is a West Coast seaport city and the  seat of King County. With an estimated 684,451 residents as of 2015, Seattle is the largest city in both the state of Washington and the Pacific Northwest region of North America.";
+    var locationOverview = "Fayetteville is a West Coast seaport city and the  seat of King County. With an estimated 684,451 residents as of 2015, Fayetteville is the largest city in both the state of Washington and the Pacific Northwest region of North America.";
     ```
 
 5.  On line 47, we have provided an array, named "attractions."  You should replace the values we have included with attractions and landmarks that are relevant and popular in your chosen location.  You're not limited to only five attractions, but we don't recommend using fewer than five.
 
     ```JAVASCRIPT
     var attractions = [
-    { name: "Woodland Park Zoo", content: "located just 10 minutes north of downtown Seattle. The zoo's 92-acres and award-winning exhibits are home to more than 1,000 animals representing 300 species from around the world.", location: "There are two zoo entrances. \n West Entrance:\n Cross streets: Phinney Ave. N. between N. 55th St. & N. 56th St.\n Street address: 5500 Phinney Ave. N., Seattle WA 98103\n South Entrance:\n Cross streets: N. 50th Street & Fremont Ave. N.\n Street address: 750 N. 50th Street, Seattle WA 98103", contact: "zooinfo@zoo.org\n 206 548 2500" },
-    { name: "EMP Museum", content: "Dedicated to contemporary popular culture, the EMP Museum was established by Microsoft co-founder Paul Allen in 2000.It's home to exhibits, interactive activity stations, sound sculpture, and various educational resources.", location: "325 5th Avenue N, Seattle, Washington", contact: "206 770 2700" },
-    { name: "Waterfront Park", content: "Designed by the Bumgardner Partnership and consultants, Waterfront Park is a public park constructed on the site of the former Schwabacher Wharf. you can enjoy excellent views of the surrounding arey, such as the city skyline, ships in drydock, container cranes and the West Seattle Bridge.", location: "1401 Alaskan Way, Seattle, WA 98101, United States", contact: "206 684 4075" },
-    { name: "Chihuly Garden and Glass", content: "Opened in 2012 on the former site of the Fun Forest, Chihuly Garden and Glass is an exhibit showcasing the work of Dale Chihuly. It comprises of three primary components: the Garden, the Glasshouse, and the Interior Exhibit. There is also a 90 seat café with additional outdoor dining.", location: "305 Harrison St, Seattle, WA 98109, United States", contact: "206 753 4940" },
-    { name: "Woodland Park", content: "A 90 acre public park home to many species of birds and mammals. Woodland park boasts several picnic areas, a formal rose garden, ballfields, a miniature golf range and a play area for children.", location: "1000 N 50th St, Seattle, WA 98103, United States", contact: "206 684 4075" },];
+    { name: "Woodland Park Zoo", content: "located just 10 minutes north of downtown Fayetteville. The zoo's 92-acres and award-winning exhibits are home to more than 1,000 animals representing 300 species from around the world.", location: "There are two zoo entrances. \n West Entrance:\n Cross streets: Phinney Ave. N. between N. 55th St. & N. 56th St.\n Street address: 5500 Phinney Ave. N., Fayetteville WA 98103\n South Entrance:\n Cross streets: N. 50th Street & Fremont Ave. N.\n Street address: 750 N. 50th Street, Fayetteville WA 98103", contact: "zooinfo@zoo.org\n 206 548 2500" },
+    { name: "EMP Museum", content: "Dedicated to contemporary popular culture, the EMP Museum was established by Microsoft co-founder Paul Allen in 2000.It's home to exhibits, interactive activity stations, sound sculpture, and various educational resources.", location: "325 5th Avenue N, Fayetteville, Washington", contact: "206 770 2700" },
+    { name: "Waterfront Park", content: "Designed by the Bumgardner Partnership and consultants, Waterfront Park is a public park constructed on the site of the former Schwabacher Wharf. you can enjoy excellent views of the surrounding arey, such as the city skyline, ships in drydock, container cranes and the West Fayetteville Bridge.", location: "1401 Alaskan Way, Fayetteville, WA 98101, United States", contact: "206 684 4075" },
+    { name: "Chihuly Garden and Glass", content: "Opened in 2012 on the former site of the Fun Forest, Chihuly Garden and Glass is an exhibit showcasing the work of Dale Chihuly. It comprises of three primary components: the Garden, the Glasshouse, and the Interior Exhibit. There is also a 90 seat café with additional outdoor dining.", location: "305 Harrison St, Fayetteville, WA 98109, United States", contact: "206 753 4940" },
+    { name: "Woodland Park", content: "A 90 acre public park home to many species of birds and mammals. Woodland park boasts several picnic areas, a formal rose garden, ballfields, a miniature golf range and a play area for children.", location: "1000 N 50th St, Fayetteville, WA 98103, United States", contact: "206 684 4075" },];
     ```
 6.  On line 55, we have provided another array, named "topFive."  This array contains responses about the top 5 things to do in your city.  When Alexa provides your list to the user, they will hear the number and the caption for each.  If the user requests more information on a specific item, Alexa will read the content in the "more" property.
 
     ```JAVASCRIPT
     var topFive = [
-    { number: "1", caption: "Visit the Space Needle and see Seattle from  above.", more: "Once the tallest structure west of the Mississippi River, The Space Needle is an observation tower that reaches a height of 605 feet. The observation deck falls slightly below this, offering views at 520 feet.", location: "400 Broad St. Seattle, WA 98109", contact: "400 Broad St. Seattle, WA 98109" },
-    { number: "2", caption: "Get shopping at Pike Place Market.", more: "One of the oldest farmer's markets in America, Pike Place Market is Seattle’s historic arcade of various vendors, winding alleys and stairways to lower levels. The market plays host to more than 10 million visitors annually.", location: "Pike Place Market PDA, 85 Pike Street, Room 500, Seattle, WA 98101", contact: "info@pikeplacemarket.org \n 206 682 7453" },
-    { number: "3", caption: "Earn your  wings at the Museum  of Flight.", more: "This museum is a non-profit air and space museum located at the southern end of King County International Airport . It's the largest private museum of its kind in the world and attracts over 500,000 visitors every year", location: "9404 East Marginal Way South Seattle, WA 98108-4097", contact: "206 764 5700" },
-    { number: "4", caption: "Breathe in the culture  at the Seattle Art  Museum.", more: "Also known as \"SAM\", the Seattle Art Museum maintains three major facilities: its main museum in downtown Seattle; the Seattle Asian Art Museum, and the Olympic Sculpture Park. The flagship museum is host to several great exhibitions and collections for you to experience.", location: "1300 First Ave Seattle, WA 98101", contact: "206 654 3100" },
-    { number: "5", caption: "Take a spin on the  Seattle Great Wheel.", more: "See Seattle's skyline from the giant Ferris wheel situated on Pier 57. The Seattle Great Wheel is the largest observation wheel on the west coast, standing 175 feet tall.", location: "1301 Alaskan Way, Seattle, Washington 98101", contact: "greatwheel@pier57seattle.com \n 206 623 8607" }];
+    { number: "1", caption: "Visit the Space Needle and see Fayetteville from  above.", more: "Once the tallest structure west of the Mississippi River, The Space Needle is an observation tower that reaches a height of 605 feet. The observation deck falls slightly below this, offering views at 520 feet.", location: "400 Broad St. Fayetteville, WA 98109", contact: "400 Broad St. Fayetteville, WA 98109" },
+    { number: "2", caption: "Get shopping at Pike Place Market.", more: "One of the oldest farmer's markets in America, Pike Place Market is Fayetteville’s historic arcade of various vendors, winding alleys and stairways to lower levels. The market plays host to more than 10 million visitors annually.", location: "Pike Place Market PDA, 85 Pike Street, Room 500, Fayetteville, WA 98101", contact: "info@pikeplacemarket.org \n 206 682 7453" },
+    { number: "3", caption: "Earn your  wings at the Museum  of Flight.", more: "This museum is a non-profit air and space museum located at the southern end of King County International Airport . It's the largest private museum of its kind in the world and attracts over 500,000 visitors every year", location: "9404 East Marginal Way South Fayetteville, WA 98108-4097", contact: "206 764 5700" },
+    { number: "4", caption: "Breathe in the culture  at the Fayetteville Art  Museum.", more: "Also known as \"SAM\", the Fayetteville Art Museum maintains three major facilities: its main museum in downtown Fayetteville; the Fayetteville Asian Art Museum, and the Olympic Sculpture Park. The flagship museum is host to several great exhibitions and collections for you to experience.", location: "1300 First Ave Fayetteville, WA 98101", contact: "206 654 3100" },
+    { number: "5", caption: "Take a spin on the  Fayetteville Great Wheel.", more: "See Fayetteville's skyline from the giant Ferris wheel situated on Pier 57. The Fayetteville Great Wheel is the largest observation wheel on the west coast, standing 175 feet tall.", location: "1301 Alaskan Way, Fayetteville, Washington 98101", contact: "greatwheel@pier57Fayetteville.com \n 206 623 8607" }];
     ```
     
 7.  Log back into your AWS console and upload the changes you have just made. First you will need to zip up the files into a new archive. You can do this by selecting the files that you need in the src directory (the node_modules directory and your updated index.js) into a new archive. Be sure that you compress the files in the folder, not the folder itself. 

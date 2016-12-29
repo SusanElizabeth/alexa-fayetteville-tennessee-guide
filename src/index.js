@@ -6,17 +6,17 @@ var states = {
     TOPFIVE: '_TOPFIVE',
 };
 
-var location = "Seattle";
+var location = "Fayetteville";
 
 var numberOfResults = 3;
 
-var APIKey = "4844d21f760b47359945751b9f875877";
+var APIKey = "0d81bb6d57f947c38f62919e514403f2";
 
 var welcomeMessage = location + " Guide. You can ask me for an attraction, the local news, or  say help. What will it be?";
 
 var welcomeRepromt = "You can ask me for an attraction, the local news, or  say help. What will it be?";
 
-var locationOverview = "Seattle is a West Coast seaport city and the  seat of King County. With an estimated 684,451 residents as of 2015, Seattle is the largest city in both the state of Washington and the Pacific Northwest region of North America.";
+var locationOverview = "Fayetteville is the largest city in Lincoln County. The city was established in 1809 by an Act of the Tennessee General Assembly.  The lands that include Lincoln County and Fayetteville were originally part of Cherokee and Chickasaw land. They were ceded to the United States in 1806.  The estimated population as of 2015 is 7,121.";
 
 var HelpMessage = "Here are some things you  can say: Give me an attraction. Tell me about " + location + ". Tell me the top five things to do. Tell me the local news.  What would you like to do?";
 
@@ -36,7 +36,7 @@ var goodbyeMessage = "OK, have a nice time in " + location + ".";
 
 var newsIntroMessage = "These are the " + numberOfResults + " most recent " + location + " headlines, you can read more on your Alexa app. ";
 
-var hearMoreMessage = "Would you like to hear about another top thing that you can do in " + location +"?";
+var hearMoreMessage = "Would you like to hear about another top thing that you can do in " + location + "?";
 
 var newline = "\n";
 
@@ -44,69 +44,112 @@ var output = "";
 
 var alexa;
 
-var attractions = [
-    { name: "Woodland Park Zoo", content: "located just 10 minutes north of downtown Seattle. The zoo's 92-acres and award-winning exhibits are home to more than 1,000 animals representing 300 species from around the world.", location: "There are two zoo entrances. \n West Entrance:\n Cross streets: Phinney Ave. N. between N. 55th St. & N. 56th St.\n Street address: 5500 Phinney Ave. N., Seattle WA 98103\n South Entrance:\n Cross streets: N. 50th Street & Fremont Ave. N.\n Street address: 750 N. 50th Street, Seattle WA 98103", contact: "zooinfo@zoo.org\n 206 548 2500" },
-    { name: "EMP Museum", content: "Dedicated to contemporary popular culture, the EMP Museum was established by Microsoft co-founder Paul Allen in 2000.It's home to exhibits, interactive activity stations, sound sculpture, and various educational resources.", location: "325 5th Avenue N, Seattle, Washington", contact: "206 770 2700" },
-    { name: "Waterfront Park", content: "Designed by the Bumgardner Partnership and consultants, Waterfront Park is a public park constructed on the site of the former Schwabacher Wharf. you can enjoy excellent views of the surrounding arey, such as the city skyline, ships in drydock, container cranes and the West Seattle Bridge.", location: "1401 Alaskan Way, Seattle, WA 98101, United States", contact: "206 684 4075" },
-    { name: "Chihuly Garden and Glass", content: "Opened in 2012 on the former site of the Fun Forest, Chihuly Garden and Glass is an exhibit showcasing the work of Dale Chihuly. It comprises of three primary components: the Garden, the Glasshouse, and the Interior Exhibit. There is also a 90 seat cafe with additional outdoor dining.", location: "305 Harrison St, Seattle, WA 98109, United States", contact: "206 753 4940" },
-    { name: "Woodland Park", content: "A 90 acre public park home to many species of birds and mammals. Woodland park boasts several picnic areas, a formal rose garden, ballfields, a miniature golf range and a play area for children.", location: "1000 N 50th St, Seattle, WA 98103, United States", contact: "206 684 4075" },
-];
+var attractions = [{
+    name: "Lincoln Theatre",
+    content: "located in the Fayetteville square, The theatre was built in 1951, so you can see your current movie with a 1950s feel.",
+    location: "The theatre is located at 120 College Street East Fayetteville, Tennessee 37334 \n across from the Fayetteville Courthouse.",
+    contact: "manager@lincolntheaterfayetteville.com\n 931 433 1943"
+}, {
+    content: "The Museum & Event Center is Lincoln County's only public location housing artifacts from the community's history.  The museum is located inside the Borden Milk Plant, constructed in 1927, and was donated by the William R. Carter family to serve as a local museum in 1987.",
+    name: "Fayetteville Lincoln County Museum",
+    location: "521 South Main Street, Fayetteville, Tennessee 37334",
+    contact: "931 438 0339"
+}, {
+    name: "Stone Bridge Park",
+    content: "This public park has a miniature of 1861 stone bridge (the original fell in 1969), visitor center, pavilions, walking track, restrooms, waterfall, 1796 cabin and canoe access to Elk River.",
+    location: "2061 Thornton Taylor Parkway Fayetteville, Tennessee 37334",
+    contact: "931 433 6059"
+}, {
+    name: "Camp Blount Monument",
+    content: "The Camp Blount marker, erected in 1998, is based on The camp was located along the Elk River and was a meeting point for the Tennessee soldiers who were serving under General Andrew Jackson in the Creek War of 1813-1814. Camp Blount also was a meeting point for soldiers during the Seminole Wars in 1818 and 1836, and for both Confederate and Federal troops during the Civil War.",
+    location: "1202 Huntsville Highway, Fayetteville, Tennessee 37334",
+    contact: "931 433 2921"
+}, {
+    name: "Honey's Restaurant",
+    content: "During World War II, several bases were located near the Fayetteville area. Many military personnel frequently visited Honey’s to enjoy the many pool matches and the always great hamburgers. The “Slawburgers“, as the hamburgers were now being called, had become a legend truly by “word-of-mouth”. After the war, many of those same military personnel have returned and shared stories about this era of Honeys.",
+    location: "109 Market Street East Fayetteville, Tennessee",
+    contact: "931 433 1181"
+}, ];
 
-var topFive = [
-    { number: "1", caption: "Visit the Space Needle and see Seattle from  above.", more: "Once the tallest structure west of the Mississippi River, The Space Needle is an observation tower that reaches a height of 605 feet. The observation deck falls slightly below this, offering views at 520 feet.", location: "400 Broad St. Seattle, WA 98109", contact: "400 Broad St. Seattle, WA 98109" },
-    { number: "2", caption: "Get shopping at Pike Place Market.", more: "One of the oldest farmer's markets in America, Pike Place Market is Seattle's historic arcade of various vendors, winding alleys and stairways to lower levels. The market plays host to more than 10 million visitors annually.", location: "Pike Place Market PDA, 85 Pike Street, Room 500, Seattle, WA 98101", contact: "info@pikeplacemarket.org \n 206 682 7453" },
-    { number: "3", caption: "Earn your  wings at the Museum  of Flight.", more: "This museum is a non-profit air and space museum located at the southern end of King County International Airport . It's the largest private museum of its kind in the world and attracts over 500,000 visitors every year", location: "9404 East Marginal Way South Seattle, WA 98108-4097", contact: "206 764 5700" },
-    { number: "4", caption: "Breathe in the culture  at the Seattle Art  Museum.", more: "Also known as \"SAM\", the Seattle Art Museum maintains three major facilities: its main museum in downtown Seattle; the Seattle Asian Art Museum, and the Olympic Sculpture Park. The flagship museum is host to several great exhibitions and collections for you to experience.", location: "1300 First Ave Seattle, WA 98101", contact: "206 654 3100" },
-    { number: "5", caption: "Take a spin on the  Seattle Great Wheel.", more: "See Seattle's skyline from the giant Ferris wheel situated on Pier 57. The Seattle Great Wheel is the largest observation wheel on the west coast, standing 175 feet tall.", location: "1301 Alaskan Way, Seattle, Washington 98101", contact: "greatwheel@pier57seattle.com \n 206 623 8607" }
-];
+var topFive = [{
+    number: "1",
+    caption: "Visit the Host of Christmas Past.",
+    more: "Celebrating a tradition that began 48 years ago when The Flower House hosted a Christmas Open House. Other businesses and organizations began participating 23 years ago in what is now the Fayetteville…Host of Christmas Past. Each year, on the second weekend in November, downtown Fayetteville becomes the setting for a magical holiday experience. With an array of music, food, exhibits, shops, candlelight and Christmas spirit the entire community joins together to promote qualities of the town.",
+    location: "208 Elk Avenue South, Fayetteville, Tennessee, 37334",
+    contact: "931 433 1234"
+}, {
+    number: "2",
+    caption: "Get antique shopping on the Historic Fayetteville Square.",
+    more: "With the new vintage revival sweeping the nation, hipsters and homemakers alike have developed a newfound taste for antique shops. Whether you’re looking for that perfect vintage dresser or something quirky to put on your shelves, these Tennessee treasures are just waiting for you to find ’em.",
+    location: "112 Main Ave S, Fayetteville, TN 37334",
+    contact: "931 433 2454"
+}, {
+    number: "3",
+    caption: "Visit the historic Fayetteville Lincoln County Museum.",
+    more: "The Museum & Event Center is Lincoln County's only public location housing artifacts from the community's history.  The museum is located inside the Borden Milk Plant, constructed in 1927, and was donated by the William R. Carter family to serve as a local museum in 1987.",
+    location: "521 South Main Street, Fayetteville, Tennessee 37334",
+    contact: "931 438 0339"
+}, {
+    number: "4",
+    caption: "See a movie at the history Lincoln Theatre.",
+    more: "located in the Fayetteville square, The theatre was built in 1951, so you can see your current movie with a 1950s feel.",
+    location: "120 College Street East, Fayetteville, TN 37334",
+    contact: "120 433 1943"
+}, {
+    number: "5",
+    caption: "Visit Sir's Fabrics, a Fayetteville landmark",
+    more: "Sir's Fabrics is one of the oldest and largest fabric stores in the Southeast, and now Sir's is a premier online fabric store and your new source for discount upholstery fabric, drapery fabric, trims, ribbon, and more.",
+    location: "110 Elk Avenue North, Fayetteville, TN 37334",
+    contact: "931 433 2487"
+}];
 
 var topFiveIntro = "Here are the top five things to  do in " + location + ".";
 
 var newSessionHandlers = {
-    'LaunchRequest': function () {
+    'LaunchRequest': function() {
         this.handler.state = states.SEARCHMODE;
 
         output = welcomeMessage;
 
         this.emit(':ask', output, welcomeRepromt);
     },
-    'getAttractionIntent': function () {
+    'getAttractionIntent': function() {
         this.handler.state = states.SEARCHMODE;
         this.emitWithState('getAttractionIntent');
     },
-    'getTopFiveIntent': function(){
+    'getTopFiveIntent': function() {
         this.handler.state = states.SEARCHMODE;
         this.emitWithState('getTopFiveIntent');
     },
-    'Unhandled': function () {
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
         this.emit('AMAZON.StopIntent');
     }
 };
 
 var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
-    'AMAZON.HelpIntent': function () {
+    'AMAZON.HelpIntent': function() {
 
         output = HelpMessage;
 
         this.emit(':ask', output, HelpMessage);
     },
 
-    'getOverview': function () {
+    'getOverview': function() {
 
         output = locationOverview;
 
         this.emit(':tellWithCard', output, location, locationOverview);
     },
 
-    'getAttractionIntent': function () {
+    'getAttractionIntent': function() {
 
         var cardTitle = location;
         var cardContent = "";
@@ -123,7 +166,7 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         }
     },
 
-    'getTopFiveIntent': function () {
+    'getTopFiveIntent': function() {
 
         output = topFiveIntro;
 
@@ -139,20 +182,20 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         this.emit(':askWithCard', output, topFiveMoreInfo, cardTitle, output);
     },
 
-    'AMAZON.YesIntent': function () {
+    'AMAZON.YesIntent': function() {
         output = HelpMessage;
         this.emit(':ask', output, HelpMessage);
     },
 
-    'AMAZON.NoIntent': function () {
+    'AMAZON.NoIntent': function() {
         output = HelpMessage;
         this.emit(':ask', HelpMessage, HelpMessage);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'getNewsIntent': function () {
-        httpGet(location, function (response) {
+    'getNewsIntent': function() {
+        httpGet(location, function(response) {
 
             // Parse the response into a JSON object ready to be formatted.
             var responseData = JSON.parse(response);
@@ -161,8 +204,7 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
             // Check if we have correct data, If not create an error speech out to try again.
             if (responseData == null) {
                 output = "There was a problem with getting data please try again";
-            }
-            else {
+            } else {
                 output = newsIntroMessage;
 
                 // If we have data.
@@ -189,30 +231,30 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         });
     },
 
-    'AMAZON.RepeatIntent': function () {
+    'AMAZON.RepeatIntent': function() {
         this.emit(':ask', output, HelpMessage);
     },
 
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
         this.emit('AMAZON.StopIntent');
     },
 
-    'Unhandled': function () {
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     }
 });
 
 var topFiveHandlers = Alexa.CreateStateHandler(states.TOPFIVE, {
-    'AMAZON.HelpIntent': function () {
+    'AMAZON.HelpIntent': function() {
 
         output = HelpMessage;
 
         this.emit(':ask', output, HelpMessage);
     },
 
-    'getMoreInfoIntent': function () {
+    'getMoreInfoIntent': function() {
         var slotValue = this.event.request.intent.slots.attraction.value;
         var index = parseInt(slotValue) - 1;
 
@@ -229,33 +271,33 @@ var topFiveHandlers = Alexa.CreateStateHandler(states.TOPFIVE, {
         }
     },
 
-    'AMAZON.YesIntent': function () {
+    'AMAZON.YesIntent': function() {
         output = getMoreInfoMessage;
         alexa.emit(':ask', output, getMoreInfoRepromtMessage);
     },
 
-    'AMAZON.NoIntent': function () {
+    'AMAZON.NoIntent': function() {
         output = goodbyeMessage;
         alexa.emit(':tell', output);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'AMAZON.RepeatIntent': function () {
+    'AMAZON.RepeatIntent': function() {
         this.emit(':ask', output, HelpMessage);
     },
 
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
     },
 
-    'Unhandled': function () {
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     }
 });
 
-exports.handler = function (event, context, callback) {
+exports.handler = function(event, context, callback) {
     alexa = Alexa.handler(event, context);
     alexa.registerHandlers(newSessionHandlers, startSearchHandlers, topFiveHandlers);
     alexa.execute();
@@ -263,10 +305,10 @@ exports.handler = function (event, context, callback) {
 
 // Create a web request and handle the response.
 function httpGet(query, callback) {
-  console.log("/n QUERY: "+query);
+    console.log("/n QUERY: " + query);
 
     var options = {
-      //http://api.nytimes.com/svc/search/v2/articlesearch.json?q=seattle&sort=newest&api-key=
+        //http://api.nytimes.com/svc/search/v2/articlesearch.json?q=Fayetteville&sort=newest&api-key=
         host: 'api.nytimes.com',
         path: '/svc/search/v2/articlesearch.json?q=' + query + '&sort=newest&api-key=' + APIKey,
         method: 'GET'
@@ -280,7 +322,7 @@ function httpGet(query, callback) {
             body += d;
         });
 
-        res.on('end', function () {
+        res.on('end', function() {
             callback(body);
         });
 
@@ -293,6 +335,6 @@ function httpGet(query, callback) {
 }
 
 String.prototype.trunc =
-      function (n) {
-          return this.substr(0, n - 1) + (this.length > n ? '&hellip;' : '');
-      };
+    function(n) {
+        return this.substr(0, n - 1) + (this.length > n ? '&hellip;' : '');
+    };
