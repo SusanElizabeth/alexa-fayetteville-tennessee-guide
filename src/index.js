@@ -20,9 +20,9 @@ var locationOverview = "Fayetteville is the largest city in Lincoln County. The 
 
 var HelpMessage = "Here are some things you  can say: Give me an attraction. Tell me about " + location + ". Tell me the top five things to do. Tell me the local news.  What would you like to do?";
 
-var moreInformation = "See your  Alexa app for  more  information.";
+var moreInformation = "See your  Alexa app for  more  information."
 
-var tryAgainMessage = "please try again.";
+var tryAgainMessage = "please try again."
 
 var noAttractionErrorMessage = "There was an error finding this attraction, " + tryAgainMessage;
 
@@ -36,7 +36,7 @@ var goodbyeMessage = "OK, have a nice time in " + location + ".";
 
 var newsIntroMessage = "These are the " + numberOfResults + " most recent " + location + " headlines, you can read more on your Alexa app. ";
 
-var hearMoreMessage = "Would you like to hear about another top thing that you can do in " + location +"?";
+var hearMoreMessage = "Would you like to hear about another top thing that you can do in " + location + "?";
 
 var newline = "\n";
 
@@ -69,7 +69,7 @@ var attractions = [{
     content: "During World War II, several bases were located near the Fayetteville area. Many military personnel frequently visited Honey’s to enjoy the many pool matches and the always great hamburgers. The “Slawburgers“, as the hamburgers were now being called, had become a legend truly by “word-of-mouth”. After the war, many of those same military personnel have returned and shared stories about this era of Honeys.",
     location: "109 Market Street East Fayetteville, Tennessee",
     contact: "931 433 1181"
-}, ];
+} ];
 
 var topFive = [{
     number: "1",
@@ -106,50 +106,58 @@ var topFive = [{
 var topFiveIntro = "Here are the top five things to  do in " + location + ".";
 
 var newSessionHandlers = {
-    'LaunchRequest': function () {
+    'LaunchRequest': function() {
         this.handler.state = states.SEARCHMODE;
 
         output = welcomeMessage;
 
         this.emit(':ask', output, welcomeRepromt);
     },
-    'getAttractionIntent': function () {
+    'getAttractionIntent': function() {
         this.handler.state = states.SEARCHMODE;
         this.emitWithState('getAttractionIntent');
     },
-    'getTopFiveIntent': function(){
+    'getTopFiveIntent': function() {
         this.handler.state = states.SEARCHMODE;
         this.emitWithState('getTopFiveIntent');
     },
-    'Unhandled': function () {
+    'getOverview': function() {
+        this.handler.state = states.SEARCHMODE;
+        this.emitWithState('getOverview');
+    },
+    'getNewsIntent': function() {
+        this.handler.state = states.SEARCHMODE;
+        this.emitWithState('getNewsIntent');
+    },
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
         this.emit('AMAZON.StopIntent');
     }
 };
 
 var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
-    'AMAZON.HelpIntent': function () {
+    'AMAZON.HelpIntent': function() {
 
         output = HelpMessage;
 
         this.emit(':ask', output, HelpMessage);
     },
 
-    'getOverview': function () {
+    'getOverview': function() {
 
         output = locationOverview;
 
         this.emit(':tellWithCard', output, location, locationOverview);
     },
 
-    'getAttractionIntent': function () {
+    'getAttractionIntent': function() {
 
         var cardTitle = location;
         var cardContent = "";
@@ -166,7 +174,7 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         }
     },
 
-    'getTopFiveIntent': function () {
+    'getTopFiveIntent': function() {
 
         output = topFiveIntro;
 
@@ -182,30 +190,29 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         this.emit(':askWithCard', output, topFiveMoreInfo, cardTitle, output);
     },
 
-    'AMAZON.YesIntent': function () {
+    'AMAZON.YesIntent': function() {
         output = HelpMessage;
         this.emit(':ask', output, HelpMessage);
     },
 
-    'AMAZON.NoIntent': function () {
+    'AMAZON.NoIntent': function() {
         output = HelpMessage;
         this.emit(':ask', HelpMessage, HelpMessage);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'getNewsIntent': function () {
-        httpGet(location, function (response) {
+    'getNewsIntent': function() {
+        httpGet(location, function(response) {
 
             // Parse the response into a JSON object ready to be formatted.
             var responseData = JSON.parse(response);
             var cardContent = "Data provided by New York Times\n\n";
 
             // Check if we have correct data, If not create an error speech out to try again.
-            if (responseData === null) {
+            if (responseData == null) {
                 output = "There was a problem with getting data please try again";
-            }
-            else {
+            } else {
                 output = newsIntroMessage;
 
                 // If we have data.
@@ -232,30 +239,30 @@ var startSearchHandlers = Alexa.CreateStateHandler(states.SEARCHMODE, {
         });
     },
 
-    'AMAZON.RepeatIntent': function () {
+    'AMAZON.RepeatIntent': function() {
         this.emit(':ask', output, HelpMessage);
     },
 
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
         this.emit('AMAZON.StopIntent');
     },
 
-    'Unhandled': function () {
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     }
 });
 
 var topFiveHandlers = Alexa.CreateStateHandler(states.TOPFIVE, {
-    'AMAZON.HelpIntent': function () {
+    'AMAZON.HelpIntent': function() {
 
         output = HelpMessage;
 
         this.emit(':ask', output, HelpMessage);
     },
 
-    'getMoreInfoIntent': function () {
+    'getMoreInfoIntent': function() {
         var slotValue = this.event.request.intent.slots.attraction.value;
         var index = parseInt(slotValue) - 1;
 
@@ -272,33 +279,33 @@ var topFiveHandlers = Alexa.CreateStateHandler(states.TOPFIVE, {
         }
     },
 
-    'AMAZON.YesIntent': function () {
+    'AMAZON.YesIntent': function() {
         output = getMoreInfoMessage;
         alexa.emit(':ask', output, getMoreInfoRepromtMessage);
     },
 
-    'AMAZON.NoIntent': function () {
+    'AMAZON.NoIntent': function() {
         output = goodbyeMessage;
         alexa.emit(':tell', output);
     },
-    'AMAZON.StopIntent': function () {
+    'AMAZON.StopIntent': function() {
         this.emit(':tell', goodbyeMessage);
     },
-    'AMAZON.RepeatIntent': function () {
+    'AMAZON.RepeatIntent': function() {
         this.emit(':ask', output, HelpMessage);
     },
 
-    'SessionEndedRequest': function () {
+    'SessionEndedRequest': function() {
         // Use this function to clear up and save any data needed between sessions
     },
 
-    'Unhandled': function () {
+    'Unhandled': function() {
         output = HelpMessage;
         this.emit(':ask', output, welcomeRepromt);
     }
 });
 
-exports.handler = function (event, context, callback) {
+exports.handler = function(event, context, callback) {
     alexa = Alexa.handler(event, context);
     alexa.registerHandlers(newSessionHandlers, startSearchHandlers, topFiveHandlers);
     alexa.execute();
@@ -323,7 +330,7 @@ function httpGet(query, callback) {
             body += d;
         });
 
-        res.on('end', function () {
+        res.on('end', function() {
             callback(body);
         });
 
@@ -336,6 +343,6 @@ function httpGet(query, callback) {
 }
 
 String.prototype.trunc =
-    function (n) {
+    function(n) {
         return this.substr(0, n - 1) + (this.length > n ? '&hellip;' : '');
     };
