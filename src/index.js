@@ -79,19 +79,19 @@ var topFive = [{
     contact: "931 433 1234"
 }, {
     number: "2",
-    caption: "Get antique shopping on the Historic Fayetteville Square.",
+    caption: "Go antique shopping on the Historic Fayetteville Square.",
     more: "With the new vintage revival sweeping the nation, hipsters and homemakers alike have developed a newfound taste for antique shops. Whether you’re looking for that perfect vintage dresser or something quirky to put on your shelves, these Tennessee treasures are just waiting for you to find ’em.",
     location: "112 Main Ave S, Fayetteville, TN 37334",
     contact: "931 433 2454"
 }, {
     number: "3",
     caption: "Visit the historic Fayetteville Lincoln County Museum.",
-    more: "The Museum & Event Center is Lincoln County's only public location housing artifacts from the community's history.  The museum is located inside the Borden Milk Plant, constructed in 1927, and was donated by the William R. Carter family to serve as a local museum in 1987.",
+    more: "The Museum and Event Center is Lincoln County's only public location housing artifacts from the community's history.  The museum is located inside the Borden Milk Plant, constructed in 1927, and was donated by the William R. Carter family to serve as a local museum in 1987.",
     location: "521 South Main Street, Fayetteville, Tennessee 37334",
     contact: "931 438 0339"
 }, {
     number: "4",
-    caption: "See a movie at the history Lincoln Theatre.",
+    caption: "See a movie at the historic Lincoln Theatre.",
     more: "located in the Fayetteville square, The theatre was built in 1951, so you can see your current movie with a 1950s feel.",
     location: "120 College Street East, Fayetteville, TN 37334",
     contact: "120 433 1943"
